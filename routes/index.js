@@ -16,5 +16,6 @@ router.get('/health-check', (req, res) => {
 	res.sendStatus(200);
 });
 
-router.post('/user/register', catchErrors(userController.registerUser));
+router.post('/user/register', catchErrors(userController.register));
+
 module.exports = router;

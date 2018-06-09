@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const https = require('https');
 
 require('dotenv').config({ path: './variables.env' });
 
@@ -17,6 +18,6 @@ const app = require('./app');
 app.set('port', process.env.PORT || 3000);
 
 //run server
-const server = app.listen(app.get('port'), () => {
-	console.log(`Express running → PORT ${server.address().port}`);
-});
+app.listen(app.get('port'));
+
+https.createServer(app.options, app).listen(app.get('port'));

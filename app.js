@@ -4,12 +4,19 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const moment = require('moment');
 const expressValidator = require('express-validator');
+const https = require('https');
+const fs = require('fs');
 
-const routes = require('./routes');
+const routes = require('./routes/index');
 
 //create our express app
 const app = express();
 
+//ssl cert
+const options = {
+	cert: fs.readFileSync('./sslcert/fullchain.pem'),
+	key: fs.readFileSync('./sslcert/privkey.pem')
+};
 //serves up static files from the public folder. Anything in public/ will just be served as is.
 app.use(express.static(path.join(__dirname, 'public')));
 

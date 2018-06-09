@@ -1,3 +1,3 @@
-exports.registerUser = async (req, res) => {
+exports.register = async (req, res) => {
 	res.json({ it: 'worked' });
 };
