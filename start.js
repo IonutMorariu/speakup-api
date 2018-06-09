@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const http = require('http');
 const https = require('https');
+const fs = require('fs');
 
 require('dotenv').config({ path: './variables.env' });
 
@@ -14,10 +16,15 @@ require('./models/User');
 
 const app = require('./app');
 
-//Set applications port to the env variable for prod and a number for local
-app.set('port', process.env.PORT || 3000);
+//ssl options
+const options = {
+	cert: fs.readFileSync('./sslcert/fullchain.pem'),
+	key: fs.readFileSync('./sslcert/privkey.pem')
+};
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(options, app);
 
 //run server
-app.listen(app.get('port'));
-
-https.createServer(app.options, app).listen(8443);
+httpServer.listen(8080);
+httpsServer.listen(8443);
