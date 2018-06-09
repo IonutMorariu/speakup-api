@@ -11,4 +11,8 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.get('/health-check', (req, res) => {
+	res.sendStatus(200);
+});
+
 module.exports = router;
