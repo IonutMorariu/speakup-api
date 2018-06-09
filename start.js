@@ -26,5 +26,5 @@ const httpServer = http.createServer(app);
 const httpsServer = https.createServer(options, app);
 
 //run server
-httpServer.listen(8080);
-httpsServer.listen(8443);
+httpServer.listen(80);
+httpsServer.listen(443);
