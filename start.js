@@ -20,4 +20,4 @@ app.set('port', process.env.PORT || 3000);
 //run server
 app.listen(app.get('port'));
 
-https.createServer(app.options, app).listen(app.get('port'));
+https.createServer(app.options, app).listen(8443);
