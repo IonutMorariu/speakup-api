@@ -16,15 +16,17 @@ require('./models/User');
 
 const app = require('./app');
 
-//ssl options
-const options = {
-	cert: fs.readFileSync('./sslcert/fullchain.pem'),
-	key: fs.readFileSync('./sslcert/privkey.pem')
-};
+if (process.env.NODE_ENV == 'production') {
+	//ssl options
+	const options = {
+		cert: fs.readFileSync('./sslcert/fullchain.pem'),
+		key: fs.readFileSync('./sslcert/privkey.pem')
+	};
+	const httpsServer = https.createServer(options, app);
+	httpsServer.listen(443);
+}
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(options, app);
 
 //run server
 httpServer.listen(80);
-httpsServer.listen(443);

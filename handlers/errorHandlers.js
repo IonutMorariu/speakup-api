@@ -11,3 +11,11 @@ exports.catchErrors = fn => {
 		return fn(req, res, next).catch(next);
 	};
 };
+
+//Check for mongoDB validation errors
+exports.validationErrors = (err, req, res, next) => {
+	if (!err.errors) return next(err);
+	// validation errors look like
+	const errorKeys = Object.keys(err.errors);
+	res.json(errorKeys.map(key => err.errors[key].message));
+};

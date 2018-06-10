@@ -7,6 +7,7 @@ const expressValidator = require('express-validator');
 const https = require('https');
 const fs = require('fs');
 
+const errorHandlers = require('./handlers/errorHandlers');
 const routes = require('./routes/index');
 
 //create our express app
@@ -23,5 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 app.use('/', routes);
+
+//Checking for validation errors
+app.use(errorHandlers.validationErrors);
 
 module.exports = app;
