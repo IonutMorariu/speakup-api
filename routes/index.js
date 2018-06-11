@@ -5,6 +5,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const flashcardController = require('../controllers/flashcardController');
+const collectionController = require('../controllers/collectionController');
 
 router.get('/', (req, res) => {
 	res.json({
@@ -30,6 +31,12 @@ router.get('/api/health-test', catchErrors(authController.checkSession), userCon
 router.post(
 	'/api/collection',
 	catchErrors(authController.checkSession),
-	catchErrors(flashcardController.createCollection)
+	catchErrors(collectionController.createCollection)
 );
+router.get(
+	'/api/collection',
+	catchErrors(authController.checkSession),
+	catchErrors(collectionController.getCollections)
+);
+
 module.exports = router;

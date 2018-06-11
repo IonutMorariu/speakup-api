@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 
 exports.login = async (req, res, next) => {
 	// res.json(req.body);
-	const user = await User.findOne({ email: req.body.email });
+	const user = await User.findOne({ email: req.body.email }).select('+password');
 	if (!user) {
-		res.status(401).send('Email/password do not match.');
+		res.status(401).send('Email do not match.');
 		return;
 	}
 	bcrypt.compare(req.body.password, user.password, function(err, result) {
@@ -57,7 +57,7 @@ exports.logout = async (req, res) => {
 };
 
 exports.checkSession = async (req, res, next) => {
-	const session_token = req.query.session_token || ' ';
+	const session_token = req.query.session_token || req.body.session_token || ' ';
 	const user = await User.findOne({ session_token });
 	if (user) {
 		req.body.user = {

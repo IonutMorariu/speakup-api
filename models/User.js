@@ -28,18 +28,13 @@ const userSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: 'You must supply a password'
+		required: 'You must supply a password',
+		select: false
 	},
 	session_token: {
 		type: String,
 		lowercase: true
-	},
-	collections: [
-		{
-			type: mongoose.Schema.ObjectId,
-			ref: 'Collection'
-		}
-	]
+	}
 });
 
 userSchema.virtual('gravatar').get(function() {
