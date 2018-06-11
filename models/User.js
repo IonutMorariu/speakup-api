@@ -33,7 +33,13 @@ const userSchema = new Schema({
 	session_token: {
 		type: String,
 		lowercase: true
-	}
+	},
+	collections: [
+		{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Collection'
+		}
+	]
 });
 
 userSchema.virtual('gravatar').get(function() {
@@ -51,6 +57,7 @@ userSchema.pre('save', function(next) {
 		user.password = hash;
 		next();
 	});
+	user.session_token = null;
 });
 
 userSchema.plugin(mongodbErrorHandler);

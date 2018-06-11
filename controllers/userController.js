@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const uuid = require('uuid');
+const bcrypt = require('bcrypt');
 
 exports.validateRegister = (req, res, next) => {
 	req.sanitizeBody('name');
@@ -25,4 +27,8 @@ exports.validateRegister = (req, res, next) => {
 exports.register = async (req, res) => {
 	const user = await new User(req.body).save();
 	res.send(user);
+};
+
+exports.healthTest = (req, res) => {
+	res.json(req.body.user);
 };
