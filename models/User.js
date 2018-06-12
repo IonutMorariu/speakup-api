@@ -31,6 +31,14 @@ const userSchema = new Schema({
 		required: 'You must supply a password',
 		select: false
 	},
+	learning_language: {
+		type: String,
+		required: 'You must supply a learning language'
+	},
+	native_language: {
+		type: String,
+		required: 'You must supply a native language'
+	},
 	session_token: {
 		type: String,
 		lowercase: true

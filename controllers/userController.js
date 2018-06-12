@@ -14,6 +14,10 @@ exports.validateRegister = (req, res, next) => {
 		gmail_remove_extension: false,
 		gmail_remove_subaddress: false
 	});
+	req.sanitizeBody('learning_language');
+	req.checkBody('learning_language', 'You must supply a learning language!').notEmpty();
+	req.sanitizeBody('native_language');
+	req.checkBody('native_language', 'You must supply a native language!').notEmpty();
 	req.checkBody('password', 'Password cannot be blank').notEmpty();
 	req.checkBody('confirm-password', 'Confirmed password cannot be blank').notEmpty();
 	req.checkBody('confirm-password', "Oops! Passwords don't match").equals(req.body.password);
