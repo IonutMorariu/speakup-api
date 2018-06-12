@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
-const validator = require('validator');
 mongoose.Promise = global.Promise;
 
 const collectionSchema = new Schema({

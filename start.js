@@ -14,6 +14,7 @@ mongoose.connection.on('error', err => {
 //importing the models
 require('./models/User');
 require('./models/Collection');
+require('./models/Flashcard');
 
 const app = require('./app');
 

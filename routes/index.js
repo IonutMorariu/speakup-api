@@ -28,15 +28,29 @@ router.post('/user/logout', catchErrors(authController.logout));
 //API ROUTES
 
 router.get('/api/health-test', catchErrors(authController.checkSession), userController.healthTest);
+
 router.post(
 	'/api/collection',
 	catchErrors(authController.checkSession),
 	catchErrors(collectionController.createCollection)
 );
+
 router.get(
 	'/api/collection',
 	catchErrors(authController.checkSession),
 	catchErrors(collectionController.getCollections)
+);
+
+router.post(
+	'/api/flashcard',
+	catchErrors(authController.checkSession),
+	catchErrors(flashcardController.createFlashcard)
+);
+
+router.get(
+	'/api/flashcard',
+	catchErrors(authController.checkSession),
+	catchErrors(flashcardController.getFlashCards)
 );
 
 module.exports = router;

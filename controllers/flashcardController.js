@@ -1,7 +1,22 @@
 const mongoose = require('mongoose');
-const Collection = mongoose.model('Collection');
+const Flashcard = mongoose.model('Flashcard');
 
-exports.createCollection = async (req, res) => {
-	const collection = new Collection({ name: req.body.name }).save();
-	res.json(collection);
+exports.createFlashcard = async (req, res) => {
+	const flashcard = await new Flashcard({
+		f_collection: req.body.collection,
+		front_text: req.body.front_text,
+		back_text: req.body.back_text
+	}).save();
+	if (flashcard) {
+		res.json({ flashcard });
+	}
+};
+
+exports.getFlashCards = async (req, res) => {
+	const flashcards = await Flashcard.find({ f_collection: req.query.collection });
+	if (flashcards.length > 0) {
+		res.json(flashcards);
+		return;
+	}
+	res.status(404).send('Collection not found');
 };
