@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 
 exports.login = async (req, res, next) => {
 	// res.json(req.body);
+	console.log(req.body);
+	console.log(req.params);
+	console.log(req.query);
 	const user = await User.findOne({ email: req.body.email }).select('+password');
 	if (!user) {
 		res.status(403).send('Email/password do not match.');
