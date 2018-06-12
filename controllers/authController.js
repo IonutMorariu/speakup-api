@@ -7,12 +7,12 @@ exports.login = async (req, res, next) => {
 	// res.json(req.body);
 	const user = await User.findOne({ email: req.body.email }).select('+password');
 	if (!user) {
-		res.status(401).send('Email do not match.');
+		res.status(403).send('Email/password do not match.');
 		return;
 	}
 	bcrypt.compare(req.body.password, user.password, function(err, result) {
-		req.body.user = { _id: user._id };
 		if (result) {
+			req.body.user = { _id: user._id };
 			return next();
 		} else if (!result) {
 			res.status(401).send('Email/password do not match.');
@@ -24,7 +24,7 @@ exports.generateSession = async (req, res) => {
 	const session_token = uuid.v4();
 	const user = await User.findOneAndUpdate(
 		{ _id: req.body.user._id },
-		{ session_token },
+		{ session_token: session_token },
 		{
 			new: true,
 			runValidators: true
