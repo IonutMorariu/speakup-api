@@ -19,8 +19,8 @@ exports.validateRegister = (req, res, next) => {
 	req.sanitizeBody('native_language');
 	req.checkBody('native_language', 'You must supply a native language!').notEmpty();
 	req.checkBody('password', 'Password cannot be blank').notEmpty();
-	req.checkBody('confirm-password', 'Confirmed password cannot be blank').notEmpty();
-	req.checkBody('confirm-password', "Oops! Passwords don't match").equals(req.body.password);
+	req.checkBody('confirm_password', 'Confirmed password cannot be blank').notEmpty();
+	req.checkBody('confirm_password', "Oops! Passwords don't match").equals(req.body.password);
 	const errors = req.validationErrors();
 	if (errors) {
 		res.json(errors);
