@@ -71,3 +71,26 @@ exports.checkSession = async (req, res, next) => {
 		res.status(401).send('Invalid session token');
 	}
 };
+
+asynchandleCreateCollection = async () => {
+	const session_token = await AsyncStorage.getItem('@speakup:sessionToken');
+	if (session_token !== null) {
+		const requestBody = {
+			session_token: session_token,
+			name: this.state.collectionName
+		};
+		const config = {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		axios
+			.post('/api/collection', requestBody, config)
+			.then(response => response.data)
+			.then(data => {});
+	}
+};
+
+onChangeText(text => {
+	this.setState({ collectionName: text });
+});

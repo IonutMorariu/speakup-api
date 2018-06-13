@@ -24,6 +24,9 @@ router.get('/health-check', (req, res) => {
 router.post('/user/register', userController.validateRegister, catchErrors(userController.register));
 router.post('/user/login', catchErrors(authController.login), catchErrors(authController.generateSession));
 router.post('/user/logout', catchErrors(authController.logout));
+router.post('/api/check-session', catchErrors(authController.checkSession), (req, res) => {
+	res.status(200).send('Session is valid');
+});
 
 //API ROUTES
 
