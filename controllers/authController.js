@@ -90,7 +90,3 @@ asynchandleCreateCollection = async () => {
 			.then(data => {});
 	}
 };
-
-onChangeText(text => {
-	this.setState({ collectionName: text });
-});
