@@ -14,6 +14,7 @@ exports.createFlashcard = async (req, res) => {
 
 exports.getFlashCards = async (req, res) => {
 	const flashcards = await Flashcard.find({ f_collection: req.query.collection });
+	console.log(req.query);
 	if (flashcards.length > 0) {
 		res.json(flashcards);
 		return;
