@@ -14,9 +14,11 @@ exports.createFlashcard = async (req, res) => {
 };
 
 exports.getFlashCards = async (req, res) => {
-	const collection = await Collection.findOne({ id: req.query.collection });
+	const collection = await Collection.findOne({ _id: req.query.collection });
+	console.log(collection);
+	console.log(req.query);
 	if (!collection) {
-		res.status(404).send('Collection Not found');
+		res.status(404).send('Collection Not found test');
 		return;
 	}
 	const flashcards = await Flashcard.find({ f_collection: collection._id });
