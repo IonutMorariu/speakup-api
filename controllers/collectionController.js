@@ -26,4 +26,5 @@ exports.removeCollection = async (req, res) => {
 		res.status(404).send('Collection not found');
 	}
 	await Flashcard.deleteMany({ f_collection: collection._id });
+	res.status(200).send('Collection removed');
 };
