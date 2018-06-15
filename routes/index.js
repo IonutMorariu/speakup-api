@@ -44,6 +44,12 @@ router.get(
 	catchErrors(collectionController.getCollections)
 );
 
+router.delete(
+	'/api/collection',
+	catchErrors(authController.checkSession),
+	catchErrors(collectionController.removeCollection)
+);
+
 router.post(
 	'/api/flashcard',
 	catchErrors(authController.checkSession),

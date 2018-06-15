@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Collection = mongoose.model('Collection');
+const Flashcard = mongoose.model('Flashcard');
 
 exports.createCollection = async (req, res) => {
 	const collection = await new Collection({ name: req.body.name, author: req.body.user._id }).save();
@@ -17,4 +18,10 @@ exports.getCollections = async (req, res) => {
 	} else {
 		res.status(404).send('This user has no collections');
 	}
+};
+
+exports.removeCollection = async (req, res) => {
+	await Collection.deleteOne({ _id: req.body.collection });
+	await Flashcard.deleteMany({ f_collection: req.body.collection });
+	res.status(200).send('Collection removed');
 };
