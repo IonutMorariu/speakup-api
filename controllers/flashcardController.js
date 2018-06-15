@@ -26,9 +26,9 @@ exports.getFlashcards = async (req, res) => {
 	res.json(flashcards);
 };
 
-exports.removeFlashcards = async (req, res) => {
+exports.removeFlashcard = async (req, res) => {
 	console.log(req.body);
-	const flashcard = await Flashcard.findByIdAndRemove({ _id: req.body.flashcard });
+	const flashcard = await Flashcard.findOneAndRemove({ _id: req.body.flashcard });
 	if (!flashcard) {
 		res.status(404).send('Flashcard not found');
 		return;
