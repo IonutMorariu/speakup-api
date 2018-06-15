@@ -59,7 +59,7 @@ router.post(
 router.get(
 	'/api/flashcard',
 	catchErrors(authController.checkSession),
-	catchErrors(flashcardController.getFlashCards)
+	catchErrors(flashcardController.getFlashcards)
 );
 
 module.exports = router;

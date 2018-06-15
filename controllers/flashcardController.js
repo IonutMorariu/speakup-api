@@ -13,7 +13,7 @@ exports.createFlashcard = async (req, res) => {
 	}
 };
 
-exports.getFlashCards = async (req, res) => {
+exports.getFlashcards = async (req, res) => {
 	const collection = await Collection.findOne({ _id: req.query.collection });
 	console.log(collection);
 	console.log(req.query);
@@ -24,4 +24,14 @@ exports.getFlashCards = async (req, res) => {
 	const flashcards = await Flashcard.find({ f_collection: collection._id });
 	console.log(flashcards);
 	res.json(flashcards);
+};
+
+exports.removeFlashcards = async (req, res) => {
+	console.log(req.body);
+	const flashcard = await Flashcard.findByIdAndRemove({ _id: req.body.id });
+	if (!flashcard) {
+		res.status(404).send('Flashcard not found');
+		return;
+	}
+	res.status(200).send('Flashcard removed');
 };
