@@ -21,7 +21,9 @@ exports.getCollections = async (req, res) => {
 };
 
 exports.removeCollection = async (req, res) => {
-	await Collection.deleteOne({ _id: req.body.collection });
-	await Flashcard.deleteMany({ f_collection: req.body.collection });
-	res.status(200).send('Collection removed');
+	const collection = await Collection.findOneAndRemove({ _id: req.body.collection });
+	if (!collection) {
+		res.status(404).send('Collection not found');
+	}
+	await Flashcard.deleteMany({ f_collection: collection._id });
 };
