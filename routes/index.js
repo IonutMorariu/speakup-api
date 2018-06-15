@@ -65,7 +65,7 @@ router.get(
 router.delete(
 	'/api/flashcard',
 	catchErrors(authController.checkSession),
-	catchErrors(flashcardController.removeFlashcards)
+	catchErrors(flashcardController.removeFlashcard)
 );
 
 module.exports = router;
