@@ -41,7 +41,8 @@ const userSchema = new Schema({
 	},
 	session_token: {
 		type: String,
-		lowercase: true
+		lowercase: true,
+		unique: true
 	}
 });
 
