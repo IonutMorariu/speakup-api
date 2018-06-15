@@ -60,7 +60,6 @@ exports.logout = async (req, res) => {
 };
 
 exports.checkSession = async (req, res, next) => {
-	console.log(req);
 	const session_token = req.query.session_token || req.body.session_token || ' ';
 	const user = await User.findOne({ session_token });
 	if (user) {

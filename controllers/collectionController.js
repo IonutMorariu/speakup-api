@@ -21,7 +21,6 @@ exports.getCollections = async (req, res) => {
 };
 
 exports.removeCollection = async (req, res) => {
-	console.log(req);
 	const collection = await Collection.findOneAndRemove({ _id: req.body.collection });
 	if (!collection) {
 		res.status(404).send('Collection not found');
