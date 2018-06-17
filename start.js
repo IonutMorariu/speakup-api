@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const expressWs = require('express-ws');
 
 require('dotenv').config({ path: './variables.env' });
 
@@ -27,10 +28,22 @@ if (process.env.NODE_ENV == 'production') {
 		key: fs.readFileSync('./sslcert/privkey.pem')
 	};
 	const httpsServer = https.createServer(options, app);
+	var websocketsafe = expressWs(app, httpsServer);
+
 	httpsServer.listen(443);
 }
 
 const httpServer = http.createServer(app);
+var websocket = expressWs(app, httpServer);
+
+app.ws('/echo-test', function(ws, req) {
+	ws.on('message', function(msg) {
+		ws.send('Message received');
+	});
+	ws.on('open', function() {
+		ws.send('opened');
+	});
+});
 
 //run server
 httpServer.listen(80);

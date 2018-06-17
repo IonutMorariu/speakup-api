@@ -71,12 +71,4 @@ router.delete(
 
 router.post('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.startChat));
 
-router.ws('/echo-test', function(ws, req) {
-	ws.on('message', function(msg) {
-		ws.send(msg);
-	});
-	ws.on('open', function() {
-		ws.send('opened');
-	});
-});
 module.exports = router;

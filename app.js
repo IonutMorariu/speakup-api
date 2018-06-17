@@ -7,8 +7,6 @@ const expressValidator = require('express-validator');
 const https = require('https');
 const fs = require('fs');
 const app = express();
-var expressWs = require('express-ws')(app);
-
 const errorHandlers = require('./handlers/errorHandlers');
 const routes = require('./routes/index');
 
