@@ -6,12 +6,14 @@ const moment = require('moment');
 const expressValidator = require('express-validator');
 const https = require('https');
 const fs = require('fs');
+const app = express();
+var expressWs = require('express-ws')(app);
 
 const errorHandlers = require('./handlers/errorHandlers');
 const routes = require('./routes/index');
 
 //create our express app
-const app = express();
+//Adding WebSockets
 
 //serves up static files from the public folder. Anything in public/ will just be served as is.
 app.use(express.static(path.join(__dirname, 'public')));
