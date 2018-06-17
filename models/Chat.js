@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
+mongoose.Promise = global.Promise;
 
 const chatSchema = new Schema({
 	user_1: {
@@ -23,4 +24,4 @@ const chatSchema = new Schema({
 
 chatSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model('chatSchema', chatSchema);
+module.exports = mongoose.model('Chat', chatSchema);

@@ -6,6 +6,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const flashcardController = require('../controllers/flashcardController');
 const collectionController = require('../controllers/collectionController');
+const chatController = require('../controllers/chatController');
 
 router.get('/', (req, res) => {
 	res.json({
@@ -67,5 +68,7 @@ router.delete(
 	catchErrors(authController.checkSession),
 	catchErrors(flashcardController.removeFlashcard)
 );
+
+router.post('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.startChat));
 
 module.exports = router;

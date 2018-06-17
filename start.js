@@ -15,6 +15,8 @@ mongoose.connection.on('error', err => {
 require('./models/User');
 require('./models/Collection');
 require('./models/Flashcard');
+require('./models/Chat');
+require('./models/Message');
 
 const app = require('./app');
 
