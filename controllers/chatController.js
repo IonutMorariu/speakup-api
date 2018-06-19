@@ -11,18 +11,24 @@ exports.startChat = async (req, res) => {
 	}
 	const matchingUsers = await User.find({ native_language: user.learning_language });
 	console.log(matchingUsers);
-
-	const randomUser = matchingUsers[Math.floor(Math.random() * matchingUsers.length)];
+	const randomNumber = Math.floor(Math.random() * matchingUsers.length);
+	const randomUser = matchingUsers[randomNumber];
 	if (!randomUser) {
 		res.status(404).send('No matching user found');
 	}
 	const newChat = await new Chat({
 		user_1: user._id,
 		user_2: randomUser._id
-	}).save();
+	})
+		.save()
+		.populate('user_2');
 
 	if (!newChat) {
 		res.status(500).send('Error creating new chat');
 	}
 	res.json(newChat);
+};
+
+exports.getChats = async (req, res) => {
+	res.send({ it: 'worked' });
 };

@@ -38,7 +38,11 @@ var websocket = expressWs(app, httpServer);
 
 app.ws('/echo-test', function(ws, req) {
 	ws.on('message', function(msg) {
-		ws.send('Message received');
+		console.log(msg);
+		const response = {
+			hello: 'to you'
+		};
+		ws.send(JSON.stringify(response));
 	});
 	ws.on('open', function() {
 		ws.send('opened');
