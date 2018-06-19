@@ -24,6 +24,7 @@ exports.startChat = async (req, res) => {
 		const existingChat = await Chat.findOne({
 			$or: [{ user_1: user._id, user_2: randomUser._id }, { user_1: randomUser._id, user_2: user._id }]
 		});
+		console.log(existingChat);
 		if (!existingChat) {
 			chatExists = false;
 		} else {
