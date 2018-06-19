@@ -3,6 +3,8 @@ const User = mongoose.model('User');
 const Chat = mongoose.model('Chat');
 
 exports.startChat = async (req, res) => {
+	//TODO Check existing chats
+
 	const user = await User.findOne({ _id: req.body.user._id });
 	console.log(user);
 	if (!user) {
@@ -30,7 +32,7 @@ exports.startChat = async (req, res) => {
 
 exports.getChats = async (req, res) => {
 	const userId = req.body.user._id; //<- Comes from checkSession middleware
-	const chats = await Chat.find({ $or: [{ user_1: userId }, { user_2: usedId }] })
+	const chats = await Chat.find({ $or: [{ user_1: userId }, { user_2: userId }] })
 		.populate('user_1')
 		.populate('user_2');
 	if (!chats) {
