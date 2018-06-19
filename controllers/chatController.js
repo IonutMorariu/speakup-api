@@ -19,16 +19,23 @@ exports.startChat = async (req, res) => {
 	const newChat = await new Chat({
 		user_1: user._id,
 		user_2: randomUser._id
-	})
-		.save()
-		.populate('user_2');
+	}).save();
+	const chatInfo = await Chat.findOne({ _id: newChat._id }).populate('user_2');
 
 	if (!newChat) {
 		res.status(500).send('Error creating new chat');
 	}
-	res.json(newChat);
+	res.json(chatInfo);
 };
 
 exports.getChats = async (req, res) => {
-	res.send({ it: 'worked' });
+	const userId = req.body.user._id; //<- Comes from checkSession middleware
+	const chats = await Chat.find({ $or: [{ user_1: userId }, { user_2: usedId }] })
+		.populate('user_1')
+		.populate('user_2');
+	if (!chats) {
+		res.status(404).send('No chats found');
+		return;
+	}
+	res.send(chats);
 };
