@@ -28,6 +28,9 @@ router.post('/user/logout', catchErrors(authController.logout));
 router.post('/api/check-session', catchErrors(authController.checkSession), (req, res) => {
 	res.status(200).send('Session is valid');
 });
+router.post('/user/get-user', catchErrors(authController.checkSession), (req, res) => {
+	res.json({ _id: req.body.user._id });
+});
 
 //API ROUTES
 
