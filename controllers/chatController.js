@@ -60,7 +60,8 @@ exports.createMessage = async (req, res) => {
 	const message = await new Message({
 		text: req.body.text,
 		user: req.body.user._id,
-		chat: req.body.chat
+		chat: req.body.chat,
+		createdAt: req.body.createdAt
 	}).save();
 	res.json(message);
 };
