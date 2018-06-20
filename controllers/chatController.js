@@ -52,7 +52,7 @@ exports.getChats = async (req, res) => {
 };
 
 exports.getMessages = async (req, res) => {
-	const messages = await Message.find({ chat: req.query.chat }).populate('user', '-session_token', '+avatar');
+	const messages = await Message.find({ chat: req.query.chat }).populate('user', '-session_token');
 	res.json(messages);
 };
 
