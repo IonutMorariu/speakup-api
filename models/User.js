@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const md5 = require('md5');
 mongoose.Promise = global.Promise;
 
 require('dotenv').config({ path: '../variables.env' });
@@ -42,12 +43,10 @@ const userSchema = new Schema({
 	session_token: {
 		type: String,
 		lowercase: true
+	},
+	avatar: {
+		type: String
 	}
-});
-
-userSchema.virtual('gravatar').get(function() {
-	const hash = md5(this.email);
-	return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
 userSchema.pre('save', function(next) {
@@ -60,6 +59,8 @@ userSchema.pre('save', function(next) {
 		user.password = hash;
 		next();
 	});
+	const hash = md5(user.email);
+	user.avatar = `https://gravatar.com/avatar/${hash}?s=200&d=identicon`;
 });
 
 userSchema.plugin(mongodbErrorHandler);

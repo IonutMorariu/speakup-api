@@ -8,7 +8,7 @@ const messageSchema = new Schema({
 		type: String,
 		required: 'A message is required'
 	},
-	sender: {
+	user: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
 	},

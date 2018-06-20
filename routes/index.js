@@ -71,4 +71,11 @@ router.delete(
 
 router.post('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.startChat));
 router.get('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.getChats));
+router.get('/api/message', catchErrors(authController.checkSession), catchErrors(chatController.getMessages));
+router.post(
+	'/api/message',
+	catchErrors(authController.checkSession),
+	catchErrors(chatController.createMessage)
+);
+
 module.exports = router;
