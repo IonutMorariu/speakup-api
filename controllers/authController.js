@@ -68,6 +68,6 @@ exports.checkSession = async (req, res, next) => {
 		};
 		return next();
 	} else {
-		res.status(401).send('Invalid session token');
+		res.status(401).send('Invalid session token not found');
 	}
 };
