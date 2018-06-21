@@ -65,3 +65,12 @@ exports.createMessage = async (req, res) => {
 	}).save();
 	res.json(message);
 };
+
+exports.removeChat = async (req, res) => {
+	const chat = await Chat.findOneAndRemove({ _id: req.body.id });
+	if (!chat) {
+		res.status(404).send('Chat not found');
+		return;
+	}
+	res.status(200).send('Chat delete successfully');
+};

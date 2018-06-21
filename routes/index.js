@@ -74,6 +74,7 @@ router.delete(
 
 router.post('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.startChat));
 router.get('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.getChats));
+router.delete('/api/chat', catchErrors(authController.checkSession), catchErrors(chatController.removeChat));
 router.get('/api/message', catchErrors(authController.checkSession), catchErrors(chatController.getMessages));
 router.post(
 	'/api/message',
