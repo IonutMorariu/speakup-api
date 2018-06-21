@@ -13,10 +13,11 @@ exports.startChat = async (req, res) => {
 	}
 	const matchingUsers = await User.find({ native_language: user.learning_language }).select('-session_token');
 
-	matchingUsers.some(async (e, i) => {
+	matchingUsers.some(async function(e, i) {
 		const chat = await Chat.findOne({
 			$or: [{ user_1: e._id, user_2: user._id }, { user_1: user._id, user_2: e._id }]
 		});
+		console.log([{ user_1: e._id, user_2: user._id }, { user_1: user._id, user_2: e._id }]);
 		if (!chat) {
 			const newChat = await new Chat({ user_1: user._id, user_2: e._id }).save();
 			res.json(newChat);
