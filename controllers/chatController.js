@@ -12,32 +12,24 @@ exports.startChat = async (req, res) => {
 		return;
 	}
 	const matchingUsers = await User.find({ native_language: user.learning_language }).select('-session_token');
-
-	matchingUsers.some(async function(e, i) {
+	const checkedUsers = [];
+	while (checkedUsers.length < matchingUsers.length) {
+		const randNumber = Math.floor(Math.random() * matchingUsers.length);
+		const randUser = matchingUsers[randNumber];
 		const chat = await Chat.findOne({
-			$or: [{ user_1: e._id, user_2: user._id }, { user_1: user._id, user_2: e._id }]
+			$or: [{ user_1: randUser._id, user_2: user._id }, { user_1: user._id, user_2: randUser._id }]
 		});
-		console.log([{ user_1: e._id, user_2: user._id }, { user_1: user._id, user_2: e._id }]);
-		if (!chat) {
-			const newChat = await new Chat({ user_1: user._id, user_2: e._id }).save();
+		if (chat) {
+			checkedUsers.push(randUser);
+		} else {
+			const newChat = await new Chat({ user_1: user._id, user_2: randUser._id }).save();
 			res.json(newChat);
-			return true;
+			break;
 		}
-		console.log(chat);
-	});
-
-	/*
-	const newChat = await new Chat({
-		user_1: user._id,
-		user_2: randomUser._id
-	}).save();
-	const chatInfo = await Chat.findOne({ _id: newChat._id }).populate('user_2', '-session_token');
-
-	if (!newChat) {
-		res.status(500).send('Error creating new chat');
 	}
-	res.json(chatInfo);
-	*/
+	if (checkedUsers.length == matchingUsers.length) {
+		res.status(404).send('No user match found');
+	}
 };
 
 exports.getChats = async (req, res) => {
