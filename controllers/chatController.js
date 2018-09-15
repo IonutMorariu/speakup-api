@@ -5,7 +5,6 @@ const Message = mongoose.model('Message');
 
 exports.startChat = async (req, res) => {
 	//TODO Check existing chats
-
 	const user = await User.findOne({ _id: req.body.user._id });
 	if (!user) {
 		res.status(404).send('User not found');
